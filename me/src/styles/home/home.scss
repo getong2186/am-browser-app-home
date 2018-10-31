@@ -1,0 +1,197 @@
+
+/**
+ * 我的首页面样式
+ */
+.home_page {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #f5f5f5;
+
+    .title_pack {
+
+    }
+
+    .info_pack {
+        width: 100%;
+        padding: 10px 20px;
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        background: #fff;
+        /*border-bottom: 0.01rem solid #dfdfdf;*/
+
+
+        .left_pack {
+            display: -webkit-flex;
+            display: flex;
+            align-items: center;
+
+            .avatars {
+                display: -webkit-flex;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                img {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                }
+
+                span {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    color: #fff;
+
+                    display: -webkit-flex;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 16px;
+                }
+
+                .tip_img {
+                    position: relative;
+                    width: 25px;
+                    height: 25px;
+                    left: -20px;
+                    bottom: -20px;
+                }
+            }
+        }
+
+        .right_pack {
+            white-space: nowrap;
+            overflow: hidden;
+            -o-text-overflow: ellipsis;
+            text-overflow:    ellipsis;
+            display: -webkit-flex;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .pack {
+
+                .name {
+                    white-space: nowrap;
+                    width: 100%;
+                    overflow: hidden;
+                    -o-text-overflow: ellipsis;
+                    text-overflow:    ellipsis;
+                    display: -webkit-flex;
+                    display: flex;
+                    align-items: flex-end;
+                    font-size: 16px;
+                    color: #232323;
+                }
+
+                .position {
+                    color: #a0a0a0;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    .settings_pack {
+        margin: 10px 0 0 0;
+
+        .settings_item {
+            background: #fff;
+            display: -webkit-flex;
+            display: flex;
+            align-items: center;
+            padding: 10px 17px;
+
+            transition: background 0.1s;
+            -moz-transition: background 0.1s;
+            -webkit-transition: background 0.1s;
+            -o-transition: background 0.1s;
+
+            .left_pack {
+                display: -webkit-flex;
+                display: flex;
+                align-items: center;
+                width: 60%;
+
+                img {
+                    width: 15px;
+                    height: 15px;
+                    margin-right: 15px;
+                }
+
+                span {
+                    font-size: 16px;
+                    color: #030303;
+                }
+            }
+
+            .right_pack {
+                display: -webkit-flex;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                width: 40%;
+
+                span {
+                    font-size: 16px;
+                    color: #7E7E7E;
+                    margin-right: 5px;
+                }
+
+                img {
+                    width: 10px;
+                    height: 15px;
+                }
+            }
+        }
+
+        .settings_item:active {
+            background: #ddd;
+        }
+
+        .settings_item:not(.last_settings_item) {
+            border-bottom: 1px solid #EEEEEE;
+        }
+    }
+
+    .out_pack {
+        margin: 32px 0 0 0;
+
+        .out_item {
+            background: #fff;
+            display: -webkit-flex;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 0;
+
+            transition: background 0.1s;
+            -moz-transition: background 0.1s;
+            -webkit-transition: background 0.1s;
+            -o-transition: background 0.1s;
+
+            span {
+                font-size: 16px;
+                /*color: #d60808;*/
+            }
+        }
+
+        .out_item:active {
+            background: #ddd;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+

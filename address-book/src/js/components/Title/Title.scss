@@ -1,0 +1,44 @@
+
+.package {
+    width: 100%;
+    height: 44px;
+    padding: 0 15px;
+    /*background: #ED4832;*/
+    display: -webkit-flex;
+    display: flex;
+}
+
+.package .title_pack {
+    width: 80%;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+}
+
+.package .title {
+    color: #fff;
+    font-size: 20px;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.package .icon_pack {
+    width: 20%;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+}
+
+.package .content_pack {
+    width: 100%;
+    text-align: right;
+}
+
+.package img {
+    width: 20px;
+    height: 20px;
+}

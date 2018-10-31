@@ -1,0 +1,108 @@
+
+/**
+ * 忘记密码 输入验证码页面样式
+ */
+.forgotCheckCode_page {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #f5f5f5;
+
+    .forgotPassword_process {
+        display:flex;
+        justify-content:center;
+        align-items: center;
+        height: 40px;
+        background: #fff;
+        font-size: 16px;
+        span {
+            color: #BBBBBB
+        }
+    }
+
+    .form_pack {
+        margin-top: 10px;
+
+        .am-list-item {
+            height: 45px;
+
+            .am-input-control {
+                display:flex;
+                justify-content:center;
+                align-items: center;
+            }
+
+            input {
+                font-size: 16px;
+            }
+        }
+
+        .am-list-body {
+            border: none;
+            background: #f5f5f5;
+        }
+
+        // 请输入手机邮箱样式
+        .forgotPassword_userName_div {
+            position: relative;
+
+            .am-button {
+                position: absolute;
+                right: 7px;
+                z-index: 999;
+                top: 3px;
+                margin: 3px 0!important;
+                height: 32px;
+                line-height: 32px;
+                padding: 0 10px;
+                font-size: 16px;
+            }
+
+            .am-button-primary::before {
+                border: 0px solid #108ee9!important;
+            }
+
+        }
+
+        .am-list-body:after {
+            border: none
+        }
+
+        .am-button {
+            height: 45px;
+            line-height: 45px;
+            font-size: 16px!important;
+            margin-top: 30px !important;
+            border: none !important;
+        }
+
+        .am-list-item.am-input-item:after {
+            border: none
+        }
+
+        // .am-button-disabled {
+        //     background: #f88e81;
+        // }
+
+        .am-input-clear {
+            height: 15px;
+            margin-right: 10px;
+            background-size: 15px 15px;
+            width: 15px;
+        }
+
+    }
+
+   
+}
+
+
+
+
+
+
+
+
+

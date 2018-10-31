@@ -1,0 +1,157 @@
+
+/**
+ * 人员详情页面
+ */
+.details_page {
+    /*position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;*/
+
+
+    .title_pack {
+        position: relative;
+        z-index: 3;
+    }
+
+    .head_pack {
+        height: 190px;
+        width: 100%;
+        background: url(../../images/background.png);
+        background-size: cover;
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .item_list {
+
+            .avatars {
+                display: -webkit-flex;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 15px;
+
+                img {
+                    width: 69px;
+                    height: 69px;
+                    border-radius: 50%;
+                }
+
+                span {
+                    width: 69px;
+                    height: 69px;
+                    border-radius: 50%;
+                    color: #fff;
+                    border: 2px solid #fff;
+                    font-size: 30px;
+
+                    display: -webkit-flex;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
+            .name {
+                white-space: nowrap;
+                width: 100%;
+                overflow: hidden;
+                -o-text-overflow: ellipsis;
+                text-overflow:    ellipsis;
+                display: inline-block;
+                font-size: 16px;
+                color: #fff;
+                text-align: center;
+            }
+
+            .position {
+                white-space: nowrap;
+                width: 100%;
+                overflow: hidden;
+                -o-text-overflow: ellipsis;
+                text-overflow:    ellipsis;
+                display: inline-block;
+                font-size: 16px;
+                color: #fff;
+                text-align: center;
+            }
+        }
+    }
+
+    .btn_pack {
+        background-color: #fff;
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 69px;
+        margin-bottom: 10px;
+
+        .btn_item {
+            width: 33.33333%;
+            margin: 20px;
+            display: -webkit-flex;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                height: 42px;
+            }
+        }
+    }
+
+    .info_pack {
+        background-color: #fff;
+        margin-bottom: 10px;
+
+        .info_item {
+            padding: 0 15px;
+            height: 55px;
+            line-height: 55px;
+            display: -webkit-flex;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #EEEEEE;
+
+            img {
+                width: 15px;
+                height: 15px;
+                margin-right: 15px;
+            }
+
+            span {
+                font-size: 16px;
+                color: #030303;
+            }
+        }
+    }
+
+    .settings_pack {
+        background-color: #fff;
+        padding: 0 15px;
+        height: 55px;
+        line-height: 55px;
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .settings_label {
+            font-size: 16px;
+            color: #030303;
+        }
+    }
+
+}
+
+
+
+
+
+
+

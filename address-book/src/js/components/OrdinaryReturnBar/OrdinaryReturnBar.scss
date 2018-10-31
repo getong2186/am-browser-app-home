@@ -1,0 +1,63 @@
+
+.package {
+    width: 100%;
+    height: 44px;
+    padding: 0;
+    /*background: #ED4832;*/
+    display: -webkit-flex;
+    display: flex;
+}
+
+.package .icon_pack {
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    z-index: 2;
+    /*background: #ED4832;*/
+    transition: background 0.1s;
+    -moz-transition: background 0.1s;
+    -webkit-transition: background 0.1s;
+    -o-transition: background 0.1s;
+}
+
+.package .icon_pack:active {
+    /*background-color: #ED1714;*/
+}
+
+.package img {
+    width: 44px;
+    height: 44px;
+}
+
+.package .tip {
+    color: #fff;
+    font-size: 18px;
+    position: relative;
+    left: -15px;
+    top: 1px;
+}
+
+.package .title_pack {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    height: 44px;
+    line-height: 44px;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.package .title {
+    color: #fff;
+    font-size: 20px;
+    white-space: nowrap;
+    width: auto;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+

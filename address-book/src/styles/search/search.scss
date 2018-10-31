@@ -1,0 +1,314 @@
+
+/**
+ * 搜索页面样式
+ */
+.search_page {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+
+    .title_pack {
+        position: relative;
+        z-index: 3;
+        height: 44px;
+    }
+
+    /**
+     * 搜索框样式兼容
+     */
+    .search_pack {
+        /*border: 3px solid #f5f5f9;*/
+        z-index: 1;
+
+        .am-search {
+            height: 56px;
+            background: #f7f7f7;
+
+            .am-search-input {
+                height: 38px;
+
+                .am-search-clear {
+                    height: 38px;
+                    margin-right: 10px;
+                    background-size: 15px 15px;
+                    width: 25px;
+                }
+
+                .am-search-synthetic-ph {
+                    height: 38px;
+                    line-height: 38px;
+
+                    .am-search-synthetic-ph-container {
+                        height: 38px;
+                        line-height: 38px;
+                        display: block;
+
+                        .am-search-synthetic-ph-icon {
+                            background-size: 15px auto;
+                            width: 26px;
+                            height: 13px;
+                            line-height: 13px;
+                        }
+
+                        .am-search-synthetic-ph-placeholder {
+                            font-size: 15px;
+                        }
+                    }
+
+
+                }
+
+                .am-search-value {
+                    height: 38px;
+                    font-size: 15px;
+                    padding-top: 10px!important;
+                    padding-bottom: 10px!important;
+                }
+            }
+
+            .am-search-cancel {
+                font-size: 15px;
+            }
+        }
+
+        .am-search.am-search-start {
+
+            .am-search-input{
+                input[type="search"] {
+                    padding-left: 35px!important;
+                }
+
+                .am-search-synthetic-ph {
+                    width: auto!important;
+                }
+            }
+        }
+    }
+
+    .list_pack {
+        overflow-y: auto;
+        background: #f7f7f7;
+        position: relative;
+        top: -1px;
+
+        .tip_pack {
+            margin: 15px 8px;
+            font-size: 15px;
+            padding: 15px 0;
+            color: #999;
+            text-align: center;
+        }
+
+        .am-indexed-list {
+            width: 100%;
+            /*padding-right: 18px;*/
+        }
+
+        .search_list {
+
+            .am-list-view-scrollview-content {
+                position: relative!important;
+
+                .am-list-body {
+                    border-top: 0px solid #ddd!important;
+
+                    .am-indexed-list-section-header {
+                        padding: 0;
+                        background-color: #f7f7f7;
+                    }
+
+                    .am-list-item {
+                        padding-left: 0!important;
+
+                        .am-list-line {
+                            padding-right: 0!important;
+
+                            .am-list-content {
+                                display: -webkit-flex;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                padding-top: 0!important;
+                                padding-bottom: 0!important;
+
+                                .user_item_pack {
+                                    width: 100%;
+
+                                    .item {
+                                        width: 100%;
+                                        padding: 10px 15px;
+                                        display: -webkit-flex;
+                                        display: flex;
+                                        align-items: center;
+                                        background: #fff;
+
+                                        .width50 {
+                                            width: 50%;
+                                        }
+
+                                        .width100 {
+                                            width: 100%;
+                                        }
+
+                                        .left_pack {
+                                            display: -webkit-flex;
+                                            display: flex;
+                                            align-items: center;
+
+                                            .avatars {
+                                                display: -webkit-flex;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+
+                                                img {
+                                                    width: 45px;
+                                                    height: 45px;
+                                                    border-radius: 50%;
+                                                }
+
+                                                span {
+                                                    width: 45px;
+                                                    height: 45px;
+                                                    /*background: #fac5be;*/
+                                                    border-radius: 50%;
+                                                    color: #fff;
+                                                    font-size: 20px;
+
+                                                    display: -webkit-flex;
+                                                    display: flex;
+                                                    align-items: center;
+                                                    justify-content: center;
+                                                }
+                                            }
+
+                                            .name {
+                                                margin-left: 15px;
+                                                white-space: nowrap;
+                                                /*width: 100%;*/
+                                                overflow: hidden;
+                                                -o-text-overflow: ellipsis;
+                                                text-overflow:    ellipsis;
+                                                display: inline-block;
+                                                font-size: 16px;
+                                                color: #030303;
+                                            }
+                                        }
+
+                                        .right_pack {
+                                            width: 50%;
+                                            white-space: nowrap;
+                                            overflow: hidden;
+                                            -o-text-overflow: ellipsis;
+                                            text-overflow:    ellipsis;
+                                            display: -webkit-flex;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            font-size: 16px;
+                                            color: #aaa;
+
+                                            .position {
+                                                text-align: right;
+                                                white-space: nowrap;
+                                                width: 100%;
+                                                overflow: hidden;
+                                                -o-text-overflow: ellipsis;
+                                                text-overflow:    ellipsis;
+                                                display: inline-block;
+                                            }
+                                        }
+                                    }
+
+                                    .item:active {
+                                        -webkit-transition-duration: 0s;
+                                        -moz-transition-duration: 0s;
+                                        transition-duration: 0ms;
+                                        background-color: #e3e3e3;
+                                    }
+                                }
+                            }
+                        }
+
+                        .am-list-line:after {
+                            border-bottom: 1px solid #eae7e7!important;
+                        }
+                    }
+                }
+            }
+        }
+
+        /**
+         * 字母索引样式
+         */
+        .am-indexed-list-quick-search-bar {
+            /*z-index: 1;*/
+            z-index: -1;
+
+            li {
+                font-size: 15px;
+                width: 20px;
+                height: 20px;
+                padding: 0;
+            }
+
+            .am-indexed-list-quick-search-bar-over {
+                background-color: rgba(0, 0, 0, 0.1)!important;
+            }
+        }
+
+        .ih {
+            padding-left: 29px;
+            font-size: 16px;
+        }
+    }
+
+    .am-indexed-list-qsindicator {
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 100px;
+        background-color: rgba(0, 0, 0, 0.4);
+        color: #fff;
+        font-size: 50px;
+        border-radius: 5px;
+        margin-top: -100px;
+        margin-left: -50px;
+    }
+
+    .am-indexed-list-qsindicator-hide {
+        display: none!important;
+    }
+}
+
+.row {
+    padding: 0 15px;
+    background-color: white;
+}
+.row-title {
+    height: 50px;
+    line-height: 50px;
+    color: #888;
+    font-size: 18px;
+    /*border-bottom: 1px solid #F6F6F6;*/
+}
+.row-text {
+    display: inline-block;
+    font-size: 16px;
+    line-height: 1;
+}
+
+
+
+
+
+
+
+
+
+

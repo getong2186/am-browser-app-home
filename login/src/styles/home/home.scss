@@ -1,0 +1,124 @@
+
+/**
+ * 登录页面样式
+ */
+.home_page {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #f5f5f5;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    
+
+    .title_pack {
+
+    }
+
+    // 登陆框样式
+    .login_pack {
+        background: #ffffff;
+        padding: 25px 7px 17px 7px;
+        width: 100%;
+        margin: 14px;
+        box-shadow: 0 -1px 4px 0 rgba(206,206,206,0.66);
+
+        .logo_pack {
+            display: -webkit-flex;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+
+            img {
+                height: 42px;
+            }
+        }
+
+        .form_pack {
+
+            .am-list-body {
+                border: 0 none;
+
+                .am-list-item {
+                    height: 45px;
+
+                    .am-input-control {
+                        display:flex;
+                        justify-content:center;
+                        align-items: center;
+                    }
+
+                    input {
+                        font-size: 16px;
+                    }
+                }
+
+                .am-input-item {
+                    margin: 10px;
+                    border: 1.5px solid #e6e6e6;
+                    border-radius: 3px;
+                }
+
+                .am-list-line::after {
+                    height: 0px!important;
+                }
+            }
+
+            .am-button-disabled {
+                background: #efedef;
+                color: #333;
+                border: 1px solid #999;
+            }
+
+            .am-list-body:after {
+                height: 0px!important;
+            }
+
+            .am-list-body:before {
+                height: 0px!important;
+            }
+
+            .am-input-item:after {
+                border-bottom: 0px;                  
+            }
+
+            .am-button {
+                height: 45px;
+                line-height: 45px;
+                font-size: 16px;
+            }
+
+            .am-input-clear {
+                height: 15px;
+                margin-right: 10px;
+                background-size: 15px 15px;
+                width: 15px;
+            }
+        }
+
+        .forgot_password_pack {
+            text-align: right;
+            padding: 0px 10px;
+            font-size: 16px;
+
+            // 返回上一级样式
+            .footer_return {
+                float: left;
+            }
+        }
+    }
+
+
+}
+
+
+
+
+
+
+
+
+

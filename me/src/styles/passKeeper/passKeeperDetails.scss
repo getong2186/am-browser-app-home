@@ -1,0 +1,55 @@
+
+/**
+ * 密码管家列表页面样式
+ */
+.pass_keeper_details_page {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #f7f7f7;
+
+    .title_pack {
+
+    }
+
+    .tip_pack {
+        display: -webkit-flex;
+        display: flex;
+        align-items: center;
+        padding: 20px 35px;
+
+        img {
+            width: 40px;
+            height: 40px;
+            margin-right: 20px;
+        }
+
+        span {
+            font-size: 24px;
+            color: #333;
+        }
+    }
+
+    .form_pack {
+
+        .am-button {
+            background: #ed4832
+        }
+
+        .am-button-disabled {
+            background: #f88e81;
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+

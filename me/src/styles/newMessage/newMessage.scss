@@ -1,0 +1,86 @@
+
+/**
+ * 新消息提醒页面样式
+ */
+.new_message_page {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #f5f5f5;
+
+    .title_pack {
+
+    }
+
+    .settings_pack {
+
+        .settings_item {
+            background: #fff;
+            display: -webkit-flex;
+            display: flex;
+            align-items: center;
+            padding: 20px 35px;
+
+            transition: background 0.1s;
+            -moz-transition: background 0.1s;
+            -webkit-transition: background 0.1s;
+            -o-transition: background 0.1s;
+
+            .left_pack {
+                display: -webkit-flex;
+                display: flex;
+                align-items: center;
+                width: 60%;
+
+                img {
+                    width: 46px;
+                    height: 46px;
+                    margin-right: 25px;
+                }
+
+                span {
+                    font-size: 34px;
+                    color: #a0a0a0;
+                }
+            }
+
+            .right_pack {
+                display: -webkit-flex;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                width: 40%;
+
+                span {
+                    font-size: 30px;
+                    color: #a0a0a0;
+                    margin-right: 15px;
+                }
+
+                img {
+                    width: 20px;
+                    height: 36px;
+                }
+            }
+        }
+
+        .settings_item:active {
+            background: #ddd;
+        }
+
+        .settings_item:not(.last_settings_item) {
+            border-bottom: 1px solid #ebebeb;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
