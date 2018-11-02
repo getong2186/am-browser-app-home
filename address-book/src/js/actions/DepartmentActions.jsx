@@ -113,12 +113,13 @@ export function setDepartmentLoading (value) {
 export function getDepartmentList (callbackFun) {
     return (dispatch, getState) => {
         const userInfo = getState().common.userInfo;
-        fetch(userInfo.managerServer + '/departmentmembers', {
+        fetch(userInfo.managerServer + '/plugin/im/v1/departmentmembers', {
             method: 'POST',
             mode: 'cors',
             //credentials: 'include',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                'access-token': sessionStorage.getItem('ac') || userInfo.accessToken
             },
             body: dealBodyFormat({
                 id : getState().department.currentDepartment.departmentId,
@@ -133,7 +134,7 @@ export function getDepartmentList (callbackFun) {
                 Toast.info(JSON.stringify(res), 1);
             }
         }).then(function(data) {
-            if (data.status) {
+            if (data.errCode == '0') {
                 let list = data.data.data;
                 // 在跟原来的数据合并
                 let concatList = getState().department.analysisDepartment.concat(list);

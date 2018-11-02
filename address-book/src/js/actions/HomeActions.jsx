@@ -1,12 +1,13 @@
 import { ListView, Toast } from 'antd-mobile';
-import 'whatwg-fetch';  // å…¼å®¹safariçš„fetch
+import 'whatwg-fetch';  // ¼æÈİsafariµÄfetch
 
 import { createAction } from '../utils/Creator';
 import { dealBodyFormat } from '../utils/BodyFormat';
+import { getAccessToken } from '../utils/accessToken';
 
 
 /**
- * actionäº‹ä»¶
+ * actionÊÂ¼ş
  */
 export const SET_COMMON_IS_REFRESH = 'HOME/SET_COMMON_IS_REFRESH';
 export const SET_COLLEAGUES_IS_REFRESH = 'HOME/SET_COLLEAGUES_IS_REFRESH';
@@ -32,7 +33,7 @@ export const SET_COLLEAGUES_ROW_IDS = 'HOME/SET_COLLEAGUES_ROW_IDS';
 
 
 /**
- * å°è£…åçš„reducersæ´¾å‘å™¨
+ * ·â×°ºóµÄreducersÅÉ·¢Æ÷
  */
 const setRCommonIsRefresh = createAction(SET_COMMON_IS_REFRESH, 'data');
 const setRColleaguesIsRefresh = createAction(SET_COLLEAGUES_IS_REFRESH, 'data');
@@ -57,11 +58,11 @@ const setRColleaguesRowIDs = createAction(SET_COLLEAGUES_ROW_IDS, 'data');
 
 
 /**
- * ä¾›containersè°ƒç”¨çš„actionä¸šåŠ¡å±‚
+ * ¹©containersµ÷ÓÃµÄactionÒµÎñ²ã
  */
 
 
-// ä¿å­˜ å¸¸ç”¨ ç»„ä»¶æ‰€éœ€å¯¹è±¡
+// ±£´æ ³£ÓÃ ×é¼şËùĞè¶ÔÏó
 const commonGetSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
 const commonGetRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
 const commonDataSource = new ListView.DataSource({
@@ -75,35 +76,35 @@ let commonSectionIDs = [];
 let commonRowIDs = [];
 
 
-// è®¾ç½®å¸¸ç”¨åˆ—è¡¨æ˜¯å¦æ˜¯åˆ·æ–°çŠ¶æ€
+// ÉèÖÃ³£ÓÃÁĞ±íÊÇ·ñÊÇË¢ĞÂ×´Ì¬
 export function setCommonIsRefresh(value) {
     return (dispatch, getState) => {
         dispatch(setRCommonIsRefresh(value));
     }
 }
 
-// è®¾ç½®åŒäº‹åˆ—è¡¨æ˜¯å¦æ˜¯åŠ è½½çŠ¶æ€
+// ÉèÖÃÍ¬ÊÂÁĞ±íÊÇ·ñÊÇ¼ÓÔØ×´Ì¬
 export function setColleaguesIsRefresh(value) {
     return (dispatch, getState) => {
         dispatch(setRColleaguesIsRefresh(value));
     }
 }
 
-// è®¾ç½®é¡µé¢æ˜¯å¦è¢«æ¸²æŸ“è¿‡
+// ÉèÖÃÒ³ÃæÊÇ·ñ±»äÖÈ¾¹ı
 export function setPageLoaded(value) {
     return (dispatch, getState) => {
         dispatch(setRPageLoaded(value));
     }
 }
 
-// è®¾ç½®åˆå§‹tab
+// ÉèÖÃ³õÊ¼tab
 export function setActiveTab(value) {
     return (dispatch, getState) => {
         dispatch(setRActiveTab(value));
     }
 }
 
-// è®¾ç½®æ»šåŠ¨æ¡ä½ç½®
+// ÉèÖÃ¹ö¶¯ÌõÎ»ÖÃ
 export function setScrollTop(value) {
     return (dispatch, getState) => {
         dispatch(setRScrollTop(value));
@@ -111,19 +112,20 @@ export function setScrollTop(value) {
 }
 
 /**
- * å¸¸ç”¨åˆ—è¡¨æ•°æ®é€»è¾‘
+ * ³£ÓÃÁĞ±íÊı¾İÂß¼­
  */
 
-// è·å–å¸¸ç”¨æ•°æ®
+// »ñÈ¡³£ÓÃÊı¾İ
 export function getCommonUseList () {
     return (dispatch, getState) => {
         const userInfo = getState().common.userInfo;
-        fetch(userInfo.managerServer + '/u/colleagues', {
+        fetch(userInfo.managerServer + '/plugin/im/v1/colleagues', {
             method: 'POST',
             mode: 'cors',
             //credentials: 'include',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                'access-token': sessionStorage.getItem('ac') || userInfo.accessToken
             },
             body: dealBodyFormat({
                 companyId : userInfo.companyId,
@@ -137,16 +139,16 @@ export function getCommonUseList () {
                 Toast.info(JSON.stringify(res), 1);
             }
         }).then(function(data) {
-            if (data.status) {
+            if (data.errCode == '0') {
                 dispatch(setRCommonDataSource(''));
-                // ä¿å­˜åŸå§‹æ•°æ®ï¼Œä¾›ç´¢å¼•æˆ–ç‚¹å‡»å•ä¸ªitemæ—¶è·å–å®Œæ•´æ•°æ®
+                // ±£´æÔ­Ê¼Êı¾İ£¬¹©Ë÷Òı»òµã»÷µ¥¸öitemÊ±»ñÈ¡ÍêÕûÊı¾İ
                 dispatch(setROriginalCommon(data.data.members));
 
-                // ä¿å­˜è§£æåçš„å±•ç¤ºæ•°æ®
+                // ±£´æ½âÎöºóµÄÕ¹Ê¾Êı¾İ
                 let analysisCommonData = analysisCommon(getState().home.originalCommonList);
                 dispatch(setRAnalysisCommon(analysisCommonData));
 
-                // ä¿å­˜indexç»„ä»¶æ‰€éœ€å¯¹è±¡
+                // ±£´æindex×é¼şËùĞè¶ÔÏó
                 commonDataBlob = analysisCommonData.dataBlob;
                 commonSectionIDs = analysisCommonData.sectionIDs;
                 commonRowIDs = analysisCommonData.rowIDs;
@@ -164,24 +166,24 @@ export function getCommonUseList () {
 }
 
 
-// å°†åå°è¿”å›çš„å¸¸ç”¨æ•°æ®è§£æä¸ºcontainersä¸­å¯ä½¿ç”¨çš„æ•°æ®æ ¼å¼
+// ½«ºóÌ¨·µ»ØµÄ³£ÓÃÊı¾İ½âÎöÎªcontainersÖĞ¿ÉÊ¹ÓÃµÄÊı¾İ¸ñÊ½
 export function analysisCommon (data) {
     let allSectionID = [];
     let allDataBlob = {};
     let allRowIDs = [];
 
-    // æå–å­—æ¯ç´¢å¼•ï¼Œæ·»åŠ æ•°æ®æ‰€å±å­—æ¯
+    // ÌáÈ¡×ÖÄ¸Ë÷Òı£¬Ìí¼ÓÊı¾İËùÊô×ÖÄ¸
     for (let i=0, len=data.length; i<len; i++) {
         let id = pinyinUtil.getFirstLetter(data[i].name, true)[0][0];
-        // ä¸æ˜¯å­—æ¯çš„å…¨éƒ¨å½’çº³åˆ°#é‡Œé¢å»
+        // ²»ÊÇ×ÖÄ¸µÄÈ«²¿¹éÄÉµ½#ÀïÃæÈ¥
         !/^[A-Za-z]+$/.test(id) ? id = '#' : id;
         allSectionID.push(id);
         data[i].pSectionID = id;
         allDataBlob[data[i].uuid] = data[i].name;
     }
 
-    // å­—æ¯å»é‡
-    var n = []; //ä¸€ä¸ªæ–°çš„ä¸´æ—¶æ•°ç»„
+    // ×ÖÄ¸È¥ÖØ
+    var n = []; //Ò»¸öĞÂµÄÁÙÊ±Êı×é
     for (let i=0, len=allSectionID.length; i<len; i++) {
         if (n.indexOf(allSectionID[i]) == -1) {
             n.push(allSectionID[i]);
@@ -189,12 +191,12 @@ export function analysisCommon (data) {
     }
     allSectionID = n.sort();
 
-    // å°†å­—æ¯æ·»åŠ åˆ°å…·ä½“æ•°æ®ä¸­
+    // ½«×ÖÄ¸Ìí¼Óµ½¾ßÌåÊı¾İÖĞ
     for (let i=0, len=allSectionID.length; i<len; i++) {
         allDataBlob[allSectionID[i]] = allSectionID[i];
     }
 
-    // æ ¹æ®å­—æ¯åˆ—è¡¨ç»„ç»‡æ¯ä¸ªå­—æ¯çš„æ˜ å°„æ•°æ®
+    // ¸ù¾İ×ÖÄ¸ÁĞ±í×éÖ¯Ã¿¸ö×ÖÄ¸µÄÓ³ÉäÊı¾İ
     for (let i=0, len=allSectionID.length; i<len; i++) {
         allRowIDs[i] = [];
         for (let j = 0, jLen = data.length; j < jLen; j++) {
@@ -213,7 +215,7 @@ export function analysisCommon (data) {
 
 
 /**
- * åŒäº‹åˆ—è¡¨æ•°æ®é€»è¾‘
+ * Í¬ÊÂÁĞ±íÊı¾İÂß¼­
  */
 
 export function resetColleaguesList() {
@@ -230,16 +232,17 @@ export function resetColleaguesList() {
     }
 }
 
-// è·å–åŒäº‹æ•°æ®
+// »ñÈ¡Í¬ÊÂÊı¾İ
 export function getColleaguesList (callbackFun) {
     return (dispatch, getState) => {
         const userInfo = getState().common.userInfo;
-        fetch(userInfo.managerServer + '/departmentmembers', {
+        fetch(userInfo.managerServer + '/plugin/im/v1/departmentmembers', {
             method: 'POST',
             mode: 'cors',
             //credentials: 'include',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                'access-token': sessionStorage.getItem('ac') || userInfo.accessToken
             },
             body: dealBodyFormat({
                 id : userInfo.topId,
@@ -254,12 +257,12 @@ export function getColleaguesList (callbackFun) {
                 Toast.info(JSON.stringify(res), 1);
             }
         }).then(function(data) {
-            if (data.status) {
+            if (data.errCode == '0') {
                 let list = data.data.data;
-                // åœ¨è·ŸåŸæ¥çš„æ•°æ®åˆå¹¶
+                // ÔÚ¸úÔ­À´µÄÊı¾İºÏ²¢
                 let concatList = getState().home.analysisColleagues.concat(list);
                 dispatch(setRAnalysisColleagues(concatList));
-                // è®¾ç½®å½“å‰é¡µæ•°æ®æ€»æ•°ç­‰çŠ¶æ€
+                // ÉèÖÃµ±Ç°Ò³Êı¾İ×ÜÊıµÈ×´Ì¬
                 dispatch(setRColleaguesCount(data.data.count));
                 dispatch(setRColleaguesCountPage(data.data.countPage));
                 dispatch(setRColleaguesPageCountLength(list.length));
@@ -274,14 +277,14 @@ export function getColleaguesList (callbackFun) {
     }
 }
 
-// è®¾ç½®å½“å‰é¡µæ•°
+// ÉèÖÃµ±Ç°Ò³Êı
 export function setColleaguesPageIndex(value) {
     return (dispatch, getState) => {
         dispatch(setRColleaguesPageIndex(value));
     }
 }
 
-// è®¾ç½®å½“å‰æ˜¯å¦æ˜¯åŠ è½½çŠ¶æ€
+// ÉèÖÃµ±Ç°ÊÇ·ñÊÇ¼ÓÔØ×´Ì¬
 export function setColleaguesLoading(value) {
     return (dispatch, getState) => {
         dispatch(setRColleaguesLoading(value));
@@ -293,7 +296,7 @@ export function setColleaguesLoading(value) {
 
 
 
-// å­˜å‚¨åŒäº‹å„é¡¹æ•°æ®åˆ°reducersä¸­ï¼Œæ–¹ä¾¿å†æ¬¡æ¸²æŸ“æ—¶è¯»å–
+// ´æ´¢Í¬ÊÂ¸÷ÏîÊı¾İµ½reducersÖĞ£¬·½±ãÔÙ´ÎäÖÈ¾Ê±¶ÁÈ¡
 export function setColleaguesDataBlob(value) {
     return (dispatch, getState) => {
         dispatch(setRColleaguesDataBlob(value));
@@ -311,7 +314,7 @@ export function setColleaguesRowIDs(value) {
 }
 
 
-// é¦–å…ˆé€šçŸ¥å®¢æˆ·ç«¯æ­¤é¡µé¢éœ€ä¸éœ€è¦ä¸‹æ‹‰åˆ·æ–°
+// Ê×ÏÈÍ¨Öª¿Í»§¶Ë´ËÒ³ÃæĞè²»ĞèÒªÏÂÀ­Ë¢ĞÂ
 export function settingRefresh(value) {
     return (dispatch, getState) => {
         if (process.env.NODE_ENV != 'development') {
@@ -319,23 +322,23 @@ export function settingRefresh(value) {
                 window.redcore.setCanDropDownRefresh(value);
             }
         } else {
-            console.info('è®¾ç½®æ­¤é¡µé¢ä¸‹æ‹‰åˆ·æ–°');
+            console.info('ÉèÖÃ´ËÒ³ÃæÏÂÀ­Ë¢ĞÂ');
         }
     }
 }
 
-// é€šçŸ¥å®¢æˆ·ç«¯ä¸‹æ‹‰åˆ·æ–°ç»“æŸ
+// Í¨Öª¿Í»§¶ËÏÂÀ­Ë¢ĞÂ½áÊø
 export function endRefresh() {
     if (process.env.NODE_ENV != 'development') {
         if (window.redcore.clientStopRefresh) {
             window.redcore.clientStopRefresh();
         }
     } else {
-        console.info('å®¢æˆ·ç«¯åœæ­¢ä¸‹æ‹‰åˆ·æ–°');
+        console.info('¿Í»§¶ËÍ£Ö¹ÏÂÀ­Ë¢ĞÂ');
     }
 }
 
-// é€šçŸ¥å®¢æˆ·ç«¯æ¥ç®¡ä¸‹æ‹‰åˆ·æ–°åŠ¨ä½œ
+// Í¨Öª¿Í»§¶Ë½Ó¹ÜÏÂÀ­Ë¢ĞÂ¶¯×÷
 export function receptionRefresh() {
     return (dispatch, getState) => {
         if (process.env.NODE_ENV != 'development') {
@@ -343,7 +346,7 @@ export function receptionRefresh() {
                 window.redcore.clientReceptionRefresh();
             }
         } else {
-            console.info('å®¢æˆ·ç«¯æ¥ç®¡ä¸‹æ‹‰åŠ¨ä½œï¼Œå¼€å§‹ä¸‹æ‹‰åˆ·æ–°');
+            console.info('¿Í»§¶Ë½Ó¹ÜÏÂÀ­¶¯×÷£¬¿ªÊ¼ÏÂÀ­Ë¢ĞÂ');
         }
     }
 }

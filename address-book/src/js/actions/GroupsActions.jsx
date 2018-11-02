@@ -35,12 +35,13 @@ export function getGroupsList () {
     return (dispatch, getState) => {
         dispatch(setRIsRefresh(true));
         const userInfo = getState().common.userInfo;
-        fetch(userInfo.managerServer + '/v2/groups', {
+        fetch(userInfo.managerServer + '/plugin/im/v1/groups', {
             method: 'POST',
             mode: 'cors',
             //credentials: 'include',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                'access-token': sessionStorage.getItem('ac') || userInfo.accessToken
             },
             body: dealBodyFormat({
                 id: userInfo.userUuid
@@ -53,7 +54,7 @@ export function getGroupsList () {
                 Toast.info(res, 1);
             }
         }).then(function(data) {
-            if (data.status) {
+            if (data.errCode == '0') {
                 dispatch(setRGroupsList(data.data));
                 endRefresh();
             } else {

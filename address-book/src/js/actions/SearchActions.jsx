@@ -89,12 +89,13 @@ export function getSearchUseList () {
             // 更改请求状态
             dispatch(setRIsRequest(true));
             const userInfo = getState().common.userInfo;
-            fetch(userInfo.managerServer + '/all', {
+            fetch(userInfo.managerServer + '/plugin/im/v1/all', {
                 method: 'POST',
                 mode: 'cors',
                 //credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                    'access-token': sessionStorage.getItem('ac') || userInfo.accessToken
                 },
                 body: dealBodyFormat({
                     keyword: getState().search.keyword.toUpperCase(),
@@ -109,7 +110,7 @@ export function getSearchUseList () {
                     Toast.info(JSON.stringify(res), 1);
                 }
             }).then(function(data) {
-                if (data.status) {
+                if (data.errCode == '0') {
                     if (Object.prototype.toString.call(data.data)!='[object Array]') {
                         // 保存原始数据，供索引或点击单个item时获取完整数据
                         dispatch(setROriginalSearch(data.data.members));

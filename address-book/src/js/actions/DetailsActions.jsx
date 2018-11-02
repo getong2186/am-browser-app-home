@@ -38,12 +38,13 @@ export function setOpenedMembers(data) {
 export function queryIsCommon () {
     return (dispatch, getState) => {
         const userInfo = getState().common.userInfo;
-        fetch(userInfo.managerServer + '/u/colleagues', {
+        fetch(userInfo.managerServer + '/plugin/im/v1/colleagues', {
             method: 'POST',
             mode: 'cors',
             //credentials: 'include',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                'access-token': sessionStorage.getItem('ac') || userInfo.accessToken
             },
             body: dealBodyFormat({
                 companyId : userInfo.companyId,
@@ -57,7 +58,7 @@ export function queryIsCommon () {
                 Toast.info(JSON.stringify(res), 1);
             }
         }).then(function(data) {
-            if (data.status) {
+            if (data.errCode == '0') {
                 // 获取最新常用联系人列表，看看当前人是否在列表当中
                 // 如果在，设置check为选中，否则，为不选中
                 let id = getState().details.openedMembers.uuid;
@@ -94,14 +95,15 @@ export function setCommon(value, targetUuid, callbackFun) {
     return (dispatch, getState) => {
         const userInfo = getState().common.userInfo;
         let url = '';
-        value ? url = '/u/addColleague' : url = '/u/deleteColleague';
+        value ? url = '/plugin/im/v1/addColleague' : url = '/plugin/im/v1/deleteColleague';
 
         fetch(userInfo.managerServer + url, {
             method: 'POST',
             mode: 'cors',
             //credentials: 'include',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                'access-token': sessionStorage.getItem('ac') || userInfo.accessToken
             },
             body: dealBodyFormat({
                 uuid : userInfo.userUuid,
@@ -115,10 +117,10 @@ export function setCommon(value, targetUuid, callbackFun) {
                 Toast.info(res, 1);
             }
         }).then(function(data) {
-            if (data.status) {
+            if (data.errCode == '0') {
                 dispatch(setRChecked(value));
             }
-            callbackFun(data.status);
+            callbackFun(data.errCode);
             Toast.info(data.message, 1);
         });
     };
