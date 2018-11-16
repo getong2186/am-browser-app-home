@@ -3,7 +3,6 @@ import 'whatwg-fetch';  // ¼æÈÝsafariµÄfetch
 
 import { createAction } from '../utils/Creator';
 import { dealBodyFormat } from '../utils/BodyFormat';
-import { getAccessToken } from '../utils/accessToken';
 
 
 /**

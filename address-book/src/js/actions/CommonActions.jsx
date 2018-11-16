@@ -55,7 +55,7 @@ export function getUserInfo () {
         refreshToken();
         tokerTimer = setInterval(function () {
             refreshToken();
-        }, 1200000);
+        }, 600000);
 
         dispatch(setRUserInfo(data));
     }
