@@ -119,6 +119,8 @@ export function setCommon(value, targetUuid, callbackFun) {
         }).then(function(data) {
             if (data.errCode == '0') {
                 dispatch(setRChecked(value));
+            } else {
+                dispatch(setRChecked(!value));
             }
             callbackFun(data.errCode);
             Toast.info(data.message, 1);

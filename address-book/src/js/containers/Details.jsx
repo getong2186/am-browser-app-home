@@ -68,7 +68,7 @@ class Details extends React.Component {
     // switch点击事件
     switchChangeHandler = (value) => {
         this.props.actions.setCommon(value, this.props.state.details.openedMembers.uuid, (status) => {
-            if (status) {
+            if (status == '0') {
                 // 设置页面check的样式颜色
                 let $dom = document.querySelector('.rc-switch');
                 let color = this.props.state.common.userInfo.themeColor;
