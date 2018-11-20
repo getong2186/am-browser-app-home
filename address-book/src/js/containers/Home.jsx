@@ -487,6 +487,7 @@ class Home extends React.Component {
 
                 <Tabs tabs={tabs}
                       className="tab_item"
+                      swipeable = {false}
                       renderTab={tab => <span>{tab.title}</span>}
                       page={state.home.activeTab}
                       onTabClick={this.tabClick}
