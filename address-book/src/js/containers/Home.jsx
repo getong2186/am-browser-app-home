@@ -370,6 +370,14 @@ class Home extends React.Component {
 
             this.props.actions.setColleaguesLoading(false);
         });
+        this.saveScrollTop();
+        this.props.actions.getCommonUseList(()=>{
+            setTimeout(()=>{
+                this.setScrollTop();
+            }, 0);
+            this.props.actions.setColleaguesLoading(false);
+        });
+        
     }
 
     // 同事item的点击事件
@@ -520,6 +528,22 @@ class Home extends React.Component {
                                         </div>
                                     </div>
                                 )}
+                                renderFooter={() => (
+                                    <div>
+                                        {state.home.colleaguesLoading ?
+                                            <span>加载中...</span>
+                                            :
+                                            state.home.colleaguesCount == 0 ?
+                                                <span>暂无数据</span>
+                                                :
+                                                state.home.colleaguesPageIndex+1 != state.home.colleaguesCountPage ?
+                                                    <span>上拉加载</span>
+                                                    :
+                                                    ''
+                                        }
+                                    </div>
+                                )}
+                                renderBodyComponent={() => <ColleaguesBody />}
                                 renderSectionHeader={sectionData => (<div className='ih'>{sectionData}</div>)}
                                 renderRow={(rowData, sectionID, rowID) => {
                                     return (
@@ -538,6 +562,12 @@ class Home extends React.Component {
                                     /*width: this.state.tabContentWidth - 23,*/
                                     overflow: 'auto',
                                 }}
+
+                                scrollRenderAheadDistance={500}
+                                scrollEventThrottle={200}
+                                onEndReached={this.onEndReached}
+                                onEndReachedThreshold={20}
+
                                 initialListSize={100000000000}
                                 pageSize={100000000000}
                                 quickSearchBarTop={{'value':'↑', 'label':'↑'}}

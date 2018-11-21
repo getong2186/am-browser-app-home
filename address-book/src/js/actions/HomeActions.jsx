@@ -1,12 +1,12 @@
 import { ListView, Toast } from 'antd-mobile';
-import 'whatwg-fetch';  // ¼æÈÝsafariµÄfetch
+import 'whatwg-fetch';  // ï¿½ï¿½ï¿½ï¿½safariï¿½ï¿½fetch
 
 import { createAction } from '../utils/Creator';
 import { dealBodyFormat } from '../utils/BodyFormat';
 
 
 /**
- * actionÊÂ¼þ
+ * actionï¿½Â¼ï¿½
  */
 export const SET_COMMON_IS_REFRESH = 'HOME/SET_COMMON_IS_REFRESH';
 export const SET_COLLEAGUES_IS_REFRESH = 'HOME/SET_COLLEAGUES_IS_REFRESH';
@@ -32,7 +32,7 @@ export const SET_COLLEAGUES_ROW_IDS = 'HOME/SET_COLLEAGUES_ROW_IDS';
 
 
 /**
- * ·â×°ºóµÄreducersÅÉ·¢Æ÷
+ * ï¿½ï¿½×°ï¿½ï¿½ï¿½reducersï¿½É·ï¿½ï¿½ï¿½
  */
 const setRCommonIsRefresh = createAction(SET_COMMON_IS_REFRESH, 'data');
 const setRColleaguesIsRefresh = createAction(SET_COLLEAGUES_IS_REFRESH, 'data');
@@ -57,11 +57,11 @@ const setRColleaguesRowIDs = createAction(SET_COLLEAGUES_ROW_IDS, 'data');
 
 
 /**
- * ¹©containersµ÷ÓÃµÄactionÒµÎñ²ã
+ * ï¿½ï¿½containersï¿½ï¿½ï¿½Ãµï¿½actionÒµï¿½ï¿½ï¿½
  */
 
 
-// ±£´æ ³£ÓÃ ×é¼þËùÐè¶ÔÏó
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 const commonGetSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
 const commonGetRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
 const commonDataSource = new ListView.DataSource({
@@ -75,35 +75,35 @@ let commonSectionIDs = [];
 let commonRowIDs = [];
 
 
-// ÉèÖÃ³£ÓÃÁÐ±íÊÇ·ñÊÇË¢ÐÂ×´Ì¬
+// ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½×´Ì¬
 export function setCommonIsRefresh(value) {
     return (dispatch, getState) => {
         dispatch(setRCommonIsRefresh(value));
     }
 }
 
-// ÉèÖÃÍ¬ÊÂÁÐ±íÊÇ·ñÊÇ¼ÓÔØ×´Ì¬
+// ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ç·ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½×´Ì¬
 export function setColleaguesIsRefresh(value) {
     return (dispatch, getState) => {
         dispatch(setRColleaguesIsRefresh(value));
     }
 }
 
-// ÉèÖÃÒ³ÃæÊÇ·ñ±»äÖÈ¾¹ý
+// ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È¾ï¿½ï¿½
 export function setPageLoaded(value) {
     return (dispatch, getState) => {
         dispatch(setRPageLoaded(value));
     }
 }
 
-// ÉèÖÃ³õÊ¼tab
+// ï¿½ï¿½ï¿½Ã³ï¿½Ê¼tab
 export function setActiveTab(value) {
     return (dispatch, getState) => {
         dispatch(setRActiveTab(value));
     }
 }
 
-// ÉèÖÃ¹ö¶¯ÌõÎ»ÖÃ
+// ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 export function setScrollTop(value) {
     return (dispatch, getState) => {
         dispatch(setRScrollTop(value));
@@ -111,11 +111,11 @@ export function setScrollTop(value) {
 }
 
 /**
- * ³£ÓÃÁÐ±íÊý¾ÝÂß¼­
+ * ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
  */
 
-// »ñÈ¡³£ÓÃÊý¾Ý
-export function getCommonUseList () {
+// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+export function getCommonUseList (callbackFun) {
     return (dispatch, getState) => {
         const userInfo = getState().common.userInfo;
         fetch(userInfo.managerServer + '/plugin/im/v1/colleagues', {
@@ -129,7 +129,9 @@ export function getCommonUseList () {
             body: dealBodyFormat({
                 companyId : userInfo.companyId,
                 uuid : userInfo.userUuid,
-                departmentId : userInfo.departmentId
+                departmentId : userInfo.departmentId,
+                start: getState().home.colleaguesPageIndex + 1,
+                number: 200
             })
         }).then(function(res) {
             if (res.ok) {
@@ -140,14 +142,19 @@ export function getCommonUseList () {
         }).then(function(data) {
             if (data.errCode == '0') {
                 dispatch(setRCommonDataSource(''));
-                // ±£´æÔ­Ê¼Êý¾Ý£¬¹©Ë÷Òý»òµã»÷µ¥¸öitemÊ±»ñÈ¡ÍêÕûÊý¾Ý
-                dispatch(setROriginalCommon(data.data.members));
+                // ï¿½ï¿½ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½itemÊ±ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                let list = data.data.data;
+                let concatList = getState().home.originalCommonList.concat(list);
+                dispatch(setROriginalCommon(concatList));
 
-                // ±£´æ½âÎöºóµÄÕ¹Ê¾Êý¾Ý
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹Ê¾ï¿½ï¿½ï¿½ï¿½
                 let analysisCommonData = analysisCommon(getState().home.originalCommonList);
                 dispatch(setRAnalysisCommon(analysisCommonData));
-
-                // ±£´æindex×é¼þËùÐè¶ÔÏó
+                
+                dispatch(setRColleaguesCount(data.data.count));
+                dispatch(setRColleaguesCountPage(data.data.countPage));
+                dispatch(setRColleaguesPageCountLength(data.data.data.length));
+                // ï¿½ï¿½ï¿½ï¿½indexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 commonDataBlob = analysisCommonData.dataBlob;
                 commonSectionIDs = analysisCommonData.sectionIDs;
                 commonRowIDs = analysisCommonData.rowIDs;
@@ -155,6 +162,7 @@ export function getCommonUseList () {
                     commonDataSource.cloneWithRowsAndSections(commonDataBlob, commonSectionIDs, commonRowIDs)
                 ));
 
+                callbackFun();
                 endRefresh();
             } else {
                 Toast.info(JSON.stringify(data), 1);
@@ -165,24 +173,24 @@ export function getCommonUseList () {
 }
 
 
-// ½«ºóÌ¨·µ»ØµÄ³£ÓÃÊý¾Ý½âÎöÎªcontainersÖÐ¿ÉÊ¹ÓÃµÄÊý¾Ý¸ñÊ½
+// ï¿½ï¿½ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ØµÄ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½Îªcontainersï¿½Ð¿ï¿½Ê¹ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ý¸ï¿½Ê½
 export function analysisCommon (data) {
     let allSectionID = [];
     let allDataBlob = {};
     let allRowIDs = [];
 
-    // ÌáÈ¡×ÖÄ¸Ë÷Òý£¬Ìí¼ÓÊý¾ÝËùÊô×ÖÄ¸
+    // ï¿½ï¿½È¡ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸
     for (let i=0, len=data.length; i<len; i++) {
         let id = pinyinUtil.getFirstLetter(data[i].name, true)[0][0];
-        // ²»ÊÇ×ÖÄ¸µÄÈ«²¿¹éÄÉµ½#ÀïÃæÈ¥
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½#ï¿½ï¿½ï¿½ï¿½È¥
         !/^[A-Za-z]+$/.test(id) ? id = '#' : id;
         allSectionID.push(id);
         data[i].pSectionID = id;
         allDataBlob[data[i].uuid] = data[i].name;
     }
 
-    // ×ÖÄ¸È¥ÖØ
-    var n = []; //Ò»¸öÐÂµÄÁÙÊ±Êý×é
+    // ï¿½ï¿½Ä¸È¥ï¿½ï¿½
+    var n = []; //Ò»ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
     for (let i=0, len=allSectionID.length; i<len; i++) {
         if (n.indexOf(allSectionID[i]) == -1) {
             n.push(allSectionID[i]);
@@ -190,12 +198,12 @@ export function analysisCommon (data) {
     }
     allSectionID = n.sort();
 
-    // ½«×ÖÄ¸Ìí¼Óµ½¾ßÌåÊý¾ÝÖÐ
+    // ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     for (let i=0, len=allSectionID.length; i<len; i++) {
         allDataBlob[allSectionID[i]] = allSectionID[i];
     }
 
-    // ¸ù¾Ý×ÖÄ¸ÁÐ±í×éÖ¯Ã¿¸ö×ÖÄ¸µÄÓ³ÉäÊý¾Ý
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½Ð±ï¿½ï¿½ï¿½Ö¯Ã¿ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     for (let i=0, len=allSectionID.length; i<len; i++) {
         allRowIDs[i] = [];
         for (let j = 0, jLen = data.length; j < jLen; j++) {
@@ -214,7 +222,7 @@ export function analysisCommon (data) {
 
 
 /**
- * Í¬ÊÂÁÐ±íÊý¾ÝÂß¼­
+ * Í¬ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
  */
 
 export function resetColleaguesList() {
@@ -231,7 +239,7 @@ export function resetColleaguesList() {
     }
 }
 
-// »ñÈ¡Í¬ÊÂÊý¾Ý
+// ï¿½ï¿½È¡Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 export function getColleaguesList (callbackFun) {
     return (dispatch, getState) => {
         const userInfo = getState().common.userInfo;
@@ -247,7 +255,7 @@ export function getColleaguesList (callbackFun) {
                 id : userInfo.topId,
                 companyId : userInfo.companyId,
                 start: getState().home.colleaguesPageIndex + 1,
-                number: 200
+                number: 20
             })
         }).then(function(res) {
             if (res.ok) {
@@ -258,10 +266,10 @@ export function getColleaguesList (callbackFun) {
         }).then(function(data) {
             if (data.errCode == '0') {
                 let list = data.data.data;
-                // ÔÚ¸úÔ­À´µÄÊý¾ÝºÏ²¢
+                // ï¿½Ú¸ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝºÏ²ï¿½
                 let concatList = getState().home.analysisColleagues.concat(list);
                 dispatch(setRAnalysisColleagues(concatList));
-                // ÉèÖÃµ±Ç°Ò³Êý¾Ý×ÜÊýµÈ×´Ì¬
+                // ï¿½ï¿½ï¿½Ãµï¿½Ç°Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
                 dispatch(setRColleaguesCount(data.data.count));
                 dispatch(setRColleaguesCountPage(data.data.countPage));
                 dispatch(setRColleaguesPageCountLength(list.length));
@@ -276,14 +284,14 @@ export function getColleaguesList (callbackFun) {
     }
 }
 
-// ÉèÖÃµ±Ç°Ò³Êý
+// ï¿½ï¿½ï¿½Ãµï¿½Ç°Ò³ï¿½ï¿½
 export function setColleaguesPageIndex(value) {
     return (dispatch, getState) => {
         dispatch(setRColleaguesPageIndex(value));
     }
 }
 
-// ÉèÖÃµ±Ç°ÊÇ·ñÊÇ¼ÓÔØ×´Ì¬
+// ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½Ç·ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½×´Ì¬
 export function setColleaguesLoading(value) {
     return (dispatch, getState) => {
         dispatch(setRColleaguesLoading(value));
@@ -295,7 +303,7 @@ export function setColleaguesLoading(value) {
 
 
 
-// ´æ´¢Í¬ÊÂ¸÷ÏîÊý¾Ýµ½reducersÖÐ£¬·½±ãÔÙ´ÎäÖÈ¾Ê±¶ÁÈ¡
+// ï¿½æ´¢Í¬ï¿½Â¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½reducersï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù´ï¿½ï¿½ï¿½È¾Ê±ï¿½ï¿½È¡
 export function setColleaguesDataBlob(value) {
     return (dispatch, getState) => {
         dispatch(setRColleaguesDataBlob(value));
@@ -313,7 +321,7 @@ export function setColleaguesRowIDs(value) {
 }
 
 
-// Ê×ÏÈÍ¨Öª¿Í»§¶Ë´ËÒ³ÃæÐè²»ÐèÒªÏÂÀ­Ë¢ÐÂ
+// ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½Í»ï¿½ï¿½Ë´ï¿½Ò³ï¿½ï¿½ï¿½è²»ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½
 export function settingRefresh(value) {
     return (dispatch, getState) => {
         if (process.env.NODE_ENV != 'development') {
@@ -321,23 +329,23 @@ export function settingRefresh(value) {
                 window.redcore.setCanDropDownRefresh(value);
             }
         } else {
-            console.info('ÉèÖÃ´ËÒ³ÃæÏÂÀ­Ë¢ÐÂ');
+            console.info('ï¿½ï¿½ï¿½Ã´ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½');
         }
     }
 }
 
-// Í¨Öª¿Í»§¶ËÏÂÀ­Ë¢ÐÂ½áÊø
+// Í¨Öªï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½Â½ï¿½ï¿½ï¿½
 export function endRefresh() {
     if (process.env.NODE_ENV != 'development') {
         if (window.redcore.clientStopRefresh) {
             window.redcore.clientStopRefresh();
         }
     } else {
-        console.info('¿Í»§¶ËÍ£Ö¹ÏÂÀ­Ë¢ÐÂ');
+        console.info('ï¿½Í»ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½');
     }
 }
 
-// Í¨Öª¿Í»§¶Ë½Ó¹ÜÏÂÀ­Ë¢ÐÂ¶¯×÷
+// Í¨Öªï¿½Í»ï¿½ï¿½Ë½Ó¹ï¿½ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½Â¶ï¿½ï¿½ï¿½
 export function receptionRefresh() {
     return (dispatch, getState) => {
         if (process.env.NODE_ENV != 'development') {
@@ -345,7 +353,7 @@ export function receptionRefresh() {
                 window.redcore.clientReceptionRefresh();
             }
         } else {
-            console.info('¿Í»§¶Ë½Ó¹ÜÏÂÀ­¶¯×÷£¬¿ªÊ¼ÏÂÀ­Ë¢ÐÂ');
+            console.info('ï¿½Í»ï¿½ï¿½Ë½Ó¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ë¢ï¿½ï¿½');
         }
     }
 }

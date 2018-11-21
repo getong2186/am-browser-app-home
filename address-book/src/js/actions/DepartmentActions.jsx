@@ -125,7 +125,7 @@ export function getDepartmentList (callbackFun) {
                 id : getState().department.currentDepartment.departmentId,
                 companyId : userInfo.companyId,
                 start: getState().department.departmentPageIndex + 1,
-                number: 200
+                number: 20
             })
         }).then(function(res) {
             if (res.ok) {
