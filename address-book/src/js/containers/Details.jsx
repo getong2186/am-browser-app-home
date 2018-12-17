@@ -148,7 +148,7 @@ class Details extends React.Component {
                             <img src={require('../../images/msg-btn.png')}></img>
                         </a>
                     </div>
-                    <div className="btn_item">
+                    <div className="btn_item" style={{display: state.details.openedMembers.useIM == 'true'? "block" : "none"}}>
                         <a onClick={this.imClickHandler.bind(this)}>
                             <img src={require('../../images/im-btn.png')}></img>
                         </a>
@@ -168,7 +168,7 @@ class Details extends React.Component {
                         <span>{state.details.openedMembers.email}</span>
                     </div>
                 </div>
-                <div className="settings_pack">
+                <div className="settings_pack" style={{display: state.common.userInfo.userUuid == state.details.openedMembers.uuid? "none" : "flex"}}>
                     <span className="settings_label">设为常用联系人</span>
                     <Switch
                         onChange={this.switchChangeHandler.bind(this)}

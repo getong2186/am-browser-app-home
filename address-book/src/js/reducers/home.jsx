@@ -54,6 +54,7 @@ export default combineReducers({
     // 当前tab
     activeTab: createReducer(0, {
         [SET_ACTIVE_TAB](state, {data}){
+            sessionStorage.setItem('activeTab', data || '0'); 
             return data;
         }
     }),

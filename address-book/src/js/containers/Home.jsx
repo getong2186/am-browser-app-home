@@ -146,7 +146,7 @@ class Home extends React.Component {
         //if (this.props.state.home.activeTab == 0) {
             // 常用
             this.props.actions.setPageLoaded(true);
-            this.props.actions.getCommonUseList();
+            this.props.actions.getCommonUseList(()=>{});
         //} else {
             // 同事
             this.dataBlob = {};
@@ -497,7 +497,7 @@ class Home extends React.Component {
                       className="tab_item"
                       swipeable = {false}
                       renderTab={tab => <span>{tab.title}</span>}
-                      page={state.home.activeTab}
+                      page={parseInt(sessionStorage.getItem('activeTab')) || state.home.activeTab }
                       onTabClick={this.tabClick}
                       tabBarUnderlineStyle={{
                           background: '#fff',

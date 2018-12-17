@@ -63,7 +63,7 @@ export function queryIsCommon () {
                 // 如果在，设置check为选中，否则，为不选中
                 let id = getState().details.openedMembers.uuid;
                 let isSelected = false;
-                let list = data.data.members;
+                let list = data.data.data;
                 for (let i=0, len=list.length; i<len; i++) {
                     if (list[i].uuid === id) {
                         isSelected = true;
